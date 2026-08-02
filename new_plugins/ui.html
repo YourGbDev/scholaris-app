@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, 'Inter', sans-serif;
+    background: #FAFAF8;
+    color: #1B3A5C;
+    font-size: 13px;
+    padding: 16px;
+    height: 520px;
+    overflow-y: auto;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(27,58,92,0.1);
+  }
+  .wordmark {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0F4D2E;
+    letter-spacing: -0.3px;
+  }
+  .badge {
+    font-size: 10px;
+    font-weight: 600;
+    background: rgba(241,180,30,0.18);
+    color: #9A7010;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: rgba(27,58,92,0.45);
+    margin-bottom: 8px;
+    margin-top: 16px;
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  /* Primary button */
+  .btn {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 50px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn:active { transform: scale(0.98); opacity: 0.85; }
+
+  .btn-primary {
+    background: #0F4D2E;
+    color: #FAFAF8;
+  }
+  .btn-secondary {
+    background: white;
+    color: #1B3A5C;
+    border: 1.5px solid rgba(27,58,92,0.2);
+  }
+  .btn-accent {
+    background: #F1B41E;
+    color: #1B3A5C;
+  }
+
+  /* Style grid */
+  .style-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .style-chip {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1.5px solid transparent;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.15s, transform 0.1s;
+  }
+  .style-chip:active { transform: scale(0.96); }
+  .style-chip.selected { border-color: #0F4D2E; }
+
+  .chip-primary   { background: #0F4D2E; color: #FAFAF8; }
+  .chip-accent    { background: #F1B41E; color: #1B3A5C; }
+  .chip-secondary { background: #1B3A5C; color: #FAFAF8; }
+  .chip-highlight { background: #FF6F59; color: #FAFAF8; }
+  .chip-bg        { background: #FAFAF8; color: #1B3A5C; border: 1.5px solid rgba(27,58,92,0.15); }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(27,58,92,0.08);
+    margin: 16px 0;
+  }
+
+  /* Color swatches row */
+  .swatches {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .swatch {
+    flex: 1;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.06);
+    position: relative;
+    cursor: default;
+  }
+  .swatch[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1B3A5C;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .tip {
+    font-size: 11px;
+    color: rgba(27,58,92,0.5);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="wordmark">Scholaris</span>
+  <span class="badge">Design Toolkit</span>
+</div>
+
+<!-- Brand colors preview -->
+<div class="section-label">Brand Colors</div>
+<div class="swatches">
+  <div class="swatch" style="background:#0F4D2E" title="#0F4D2E — Bridge Green"></div>
+  <div class="swatch" style="background:#F1B41E" title="#F1B41E — Golden Opportunity"></div>
+  <div class="swatch" style="background:#1B3A5C" title="#1B3A5C — Navy Trust"></div>
+  <div class="swatch" style="background:#FF6F59" title="#FF6F59 — Coral Connect"></div>
+  <div class="swatch" style="background:#FAFAF8;border:1px solid rgba(27,58,92,0.15)" title="#FAFAF8 — Warm White"></div>
+</div>
+
+<!-- Apply brand color to selection -->
+<div class="section-label">Apply Color to Selection</div>
+<p class="tip">Select any layer(s) in Figma, pick a role, then apply.</p>
+<div class="style-grid">
+  <button class="style-chip chip-primary"   onclick="applyStyle('primary')">Primary</button>
+  <button class="style-chip chip-accent"    onclick="applyStyle('accent')">Accent</button>
+  <button class="style-chip chip-secondary" onclick="applyStyle('secondary')">Secondary</button>
+  <button class="style-chip chip-highlight" onclick="applyStyle('highlight')">Highlight</button>
+  <button class="style-chip chip-bg"        onclick="applyStyle('background')" style="grid-column:1/-1">Background</button>
+</div>
+
+<hr class="divider" />
+
+<!-- Screens -->
+<div class="section-label">Generate Screens</div>
+<button class="btn btn-primary" onclick="createSplash()">
+  <span>🎓</span> Create Splash Screen
+</button>
+<button class="btn btn-primary" onclick="createLogin()">
+  <span>📱</span> Create Login Screen
+</button>
+<button class="btn btn-primary" onclick="createSignup()">
+  <span>✍️</span> Create Sign Up Screen
+</button>
+<button class="btn btn-primary" onclick="createHome()">
+  <span>🏠</span> Create Home Screen
+</button>
+<button class="btn btn-primary" onclick="createList()">
+  <span>📋</span> Create Scholarship List
+</button>
+  <button class="btn btn-primary" onclick="createDetails()">
+    <span>📄</span> Create Scholarship Details
+  </button>
+  <button class="btn btn-primary" onclick="createDetailsChed()">
+    <span>📄</span> Create CHED Full Merit Details
+  </button>
+  <button class="btn btn-primary" onclick="createDetailsSm()">
+    <span>📄</span> Create SM Foundation Details
+  </button>
+  <button class="btn btn-primary" onclick="createDetailsAyala()">
+    <span>📄</span> Create Ayala Foundation Details
+  </button>
+  <button class="btn btn-primary" onclick="createProfile()">
+  <span>👤</span> Create Profile Screen
+</button>
+<button class="btn btn-primary" onclick="createSearch()">
+  <span>🔍</span> Create Search Screen
+</button>
+<button class="btn btn-primary" onclick="createApply()">
+  <span>📝</span> Create Apply Screen
+</button>
+<button class="btn btn-primary" onclick="createSubmitted()">
+  <span>📬</span> Create Submitted Screen
+</button>
+<button class="btn btn-primary" onclick="createUnderReview()">
+  <span>⏳</span> Create Under Review Screen
+</button>
+  <button class="btn btn-primary" onclick="createApproved()">
+    <span>✅</span> Create Approved Screen
+  </button>
+
+  <!-- CHED -->
+  <button class="btn btn-primary" onclick="createApplyChed()">
+    <span>📝</span> Create CHED Apply Screen
+  </button>
+  <button class="btn btn-primary" onclick="createSubmittedChed()">
+    <span>📬</span> Create CHED Submitted Screen
+  </button>
+  <button class="btn btn-primary" onclick="createUnderReviewChed()">
+    <span>⏳</span> Create CHED Under Review Screen
+  </button>
+  <button class="btn btn-primary" onclick="createApprovedChed()">
+    <span>✅</span> Create CHED Approved Screen
+  </button>
+
+  <!-- SM Foundation -->
+  <button class="btn btn-primary" onclick="createApplySm()">
+    <span>📝</span> Create SM Apply Screen
+  </button>
+  <button class="btn btn-primary" onclick="createSubmittedSm()">
+    <span>📬</span> Create SM Submitted Screen
+  </button>
+  <button class="btn btn-primary" onclick="createUnderReviewSm()">
+    <span>⏳</span> Create SM Under Review Screen
+  </button>
+  <button class="btn btn-primary" onclick="createApprovedSm()">
+    <span>✅</span> Create SM Approved Screen
+  </button>
+
+  <!-- Ayala Foundation -->
+  <button class="btn btn-primary" onclick="createApplyAyala()">
+    <span>📝</span> Create Ayala Apply Screen
+  </button>
+  <button class="btn btn-primary" onclick="createSubmittedAyala()">
+    <span>📬</span> Create Ayala Submitted Screen
+  </button>
+  <button class="btn btn-primary" onclick="createUnderReviewAyala()">
+    <span>⏳</span> Create Ayala Under Review Screen
+  </button>
+  <button class="btn btn-primary" onclick="createApprovedAyala()">
+    <span>✅</span> Create Ayala Approved Screen
+  </button>
+
+  <!-- Components -->
+<div class="section-label">Generate Components</div>
+<button class="btn btn-secondary" onclick="createComponents()">
+  <span>🧩</span> Drop All Components to Canvas
+</button>
+<p class="tip">Creates: primary button, outline button, input field, scholarship card, and badge.</p>
+
+<hr class="divider" />
+
+<button class="btn btn-secondary" style="opacity:0.6" onclick="cancel()">Close Plugin</button>
+
+<script>
+  function applyStyle(role) {
+    parent.postMessage({ pluginMessage: { type: 'apply-styles', role } }, '*');
+  }
+  function createSplash() {
+    parent.postMessage({ pluginMessage: { type: 'create-splash' } }, '*');
+  }
+  function createLogin() {
+    parent.postMessage({ pluginMessage: { type: 'create-login' } }, '*');
+  }
+  function createSignup() {
+    parent.postMessage({ pluginMessage: { type: 'create-signup' } }, '*');
+  }
+  function createHome() {
+    parent.postMessage({ pluginMessage: { type: 'create-home' } }, '*');
+  }
+  function createList() {
+    parent.postMessage({ pluginMessage: { type: 'create-list' } }, '*');
+  }
+  function createDetails() {
+    parent.postMessage({ pluginMessage: { type: 'create-details' } }, '*');
+  }
+  function createDetailsChed() {
+    parent.postMessage({ pluginMessage: { type: 'create-details-ched' } }, '*');
+  }
+  function createDetailsSm() {
+    parent.postMessage({ pluginMessage: { type: 'create-details-sm' } }, '*');
+  }
+  function createDetailsAyala() {
+    parent.postMessage({ pluginMessage: { type: 'create-details-ayala' } }, '*');
+  }
+  function createProfile() {
+    parent.postMessage({ pluginMessage: { type: 'create-profile' } }, '*');
+  }
+  function createSearch() {
+    parent.postMessage({ pluginMessage: { type: 'create-search' } }, '*');
+  }
+  function createApply() {
+    parent.postMessage({ pluginMessage: { type: 'create-apply' } }, '*');
+  }
+  function createSubmitted() {
+    parent.postMessage({ pluginMessage: { type: 'create-submitted' } }, '*');
+  }
+  function createUnderReview() {
+    parent.postMessage({ pluginMessage: { type: 'create-under-review' } }, '*');
+  }
+  function createApproved() {
+    parent.postMessage({ pluginMessage: { type: 'create-approved' } }, '*');
+  }
+  function createApplyChed() {
+    parent.postMessage({ pluginMessage: { type: 'create-apply-ched' } }, '*');
+  }
+  function createSubmittedChed() {
+    parent.postMessage({ pluginMessage: { type: 'create-submitted-ched' } }, '*');
+  }
+  function createUnderReviewChed() {
+    parent.postMessage({ pluginMessage: { type: 'create-under-review-ched' } }, '*');
+  }
+  function createApprovedChed() {
+    parent.postMessage({ pluginMessage: { type: 'create-approved-ched' } }, '*');
+  }
+  function createApplySm() {
+    parent.postMessage({ pluginMessage: { type: 'create-apply-sm' } }, '*');
+  }
+  function createSubmittedSm() {
+    parent.postMessage({ pluginMessage: { type: 'create-submitted-sm' } }, '*');
+  }
+  function createUnderReviewSm() {
+    parent.postMessage({ pluginMessage: { type: 'create-under-review-sm' } }, '*');
+  }
+  function createApprovedSm() {
+    parent.postMessage({ pluginMessage: { type: 'create-approved-sm' } }, '*');
+  }
+  function createApplyAyala() {
+    parent.postMessage({ pluginMessage: { type: 'create-apply-ayala' } }, '*');
+  }
+  function createSubmittedAyala() {
+    parent.postMessage({ pluginMessage: { type: 'create-submitted-ayala' } }, '*');
+  }
+  function createUnderReviewAyala() {
+    parent.postMessage({ pluginMessage: { type: 'create-under-review-ayala' } }, '*');
+  }
+  function createApprovedAyala() {
+    parent.postMessage({ pluginMessage: { type: 'create-approved-ayala' } }, '*');
+  }
+  function createComponents() {
+    parent.postMessage({ pluginMessage: { type: 'create-components' } }, '*');
+  }
+  function cancel() {
+    parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+  }
+</script>
+</body>
+</html>
