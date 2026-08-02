@@ -1,1 +1,38 @@
-Project SummaryProject Name: Scholaris (formerly BRIDGE — Bridging Resources In Delivering Grants & Education)Subject: Application Development and Emerging TechnologiesStatus: Branding complete | Figma account created | Development pendingCore Concept & FeaturesScholaris is a mobile platform designed to streamline scholarship access for deserving students by matching them directly with NGOs, local government units (LGUs), private donors, and school financial aid offices.Smart Matching: Automatically filters and pairs students based on course, GPA, and financial need.One-Time Profile: Eliminates repetitive paperwork across multiple applications.Live Status Tracking: Real-time push notifications tracking application progress from submission to approval.Partner Dashboard: Administrative portal for scholarship providers to post listings and review applicants.Verified Documents: Secure upload and validation mechanism for required documentation.Brand IdentityElementSpecificationColor Palette• Bridge Green (#0F4D2E)• Golden Opportunity (#F1B41E)• Navy Trust (#1B3A5C)• Coral Connect (#FF6F59)Typography• Headings: Poppins• Body: Open Sans• Data/Tables: Roboto MonoLogo IconographyArch bridge combined with a graduation capTechnical ContextFrontend Framework: Mobile app (React Native or Flutter — TBD)Design/Prototyping: Figma (In progress)Related Project: EcoWatch
+# Scholaris (formerly BRIDGE)
+
+## Original Name
+BRIDGE — Bridging Resources In Delivering Grants & Education
+Renamed to Scholaris by teacher's instruction.
+
+## What It Is
+A mobile app that connects deserving students with scholarship opportunities. Students build a profile once and get matched to relevant scholarships based on course, GPA, and financial need.
+
+## Target Users
+- Students seeking financial aid and scholarships
+- Scholarship providers (NGOs, LGUs, private donors, alumni foundations)
+- School offices administering financial aid programs
+
+## Key Features
+- Smart Matching — matches students to scholarships by course, GPA, and need
+- One-Time Profile — apply to multiple scholarships without repeat paperwork
+- Live Status Tracking — push notifications from submission to approval
+- Partner Dashboard — organizations post, manage, and review applicants
+- Verified Documents — secure upload and validation of requirements
+
+## Branding
+- Colors: Bridge Green #0F4D2E, Golden Opportunity #F1B41E, Navy Trust #1B3A5C, Coral Connect #FF6F59
+- Fonts: Poppins (headings), Open Sans (body), Roboto Mono (data)
+- Logo: arch bridge + graduation cap
+
+## Tech Stack
+- Mobile app (React Native or Flutter — TBD)
+- Figma prototype in progress
+
+## Status
+- Branding complete
+- Figma account created
+- Development not yet started
+
+## Links
+Related: [[EcoWatch]]
+Subject: Application Development and Emerging Technologies
