@@ -200,19 +200,10 @@
 <button class="btn btn-primary" onclick="createList()">
   <span>📋</span> Create Scholarship List
 </button>
-  <button class="btn btn-primary" onclick="createDetails()">
-    <span>📄</span> Create Scholarship Details
-  </button>
-  <button class="btn btn-primary" onclick="createDetailsChed()">
-    <span>📄</span> Create CHED Full Merit Details
-  </button>
-  <button class="btn btn-primary" onclick="createDetailsSm()">
-    <span>📄</span> Create SM Foundation Details
-  </button>
-  <button class="btn btn-primary" onclick="createDetailsAyala()">
-    <span>📄</span> Create Ayala Foundation Details
-  </button>
-  <button class="btn btn-primary" onclick="createProfile()">
+<button class="btn btn-primary" onclick="createDetails()">
+  <span>📄</span> Create Scholarship Details
+</button>
+<button class="btn btn-primary" onclick="createProfile()">
   <span>👤</span> Create Profile Screen
 </button>
 <button class="btn btn-primary" onclick="createSearch()">
@@ -227,53 +218,37 @@
 <button class="btn btn-primary" onclick="createUnderReview()">
   <span>⏳</span> Create Under Review Screen
 </button>
-  <button class="btn btn-primary" onclick="createApproved()">
-    <span>✅</span> Create Approved Screen
-  </button>
+<button class="btn btn-primary" onclick="createApproved()">
+  <span>✅</span> Create Approved Screen
+</button>
 
-  <!-- CHED -->
-  <button class="btn btn-primary" onclick="createApplyChed()">
-    <span>📝</span> Create CHED Apply Screen
-  </button>
-  <button class="btn btn-primary" onclick="createSubmittedChed()">
-    <span>📬</span> Create CHED Submitted Screen
-  </button>
-  <button class="btn btn-primary" onclick="createUnderReviewChed()">
-    <span>⏳</span> Create CHED Under Review Screen
-  </button>
-  <button class="btn btn-primary" onclick="createApprovedChed()">
-    <span>✅</span> Create CHED Approved Screen
-  </button>
 
-  <!-- SM Foundation -->
-  <button class="btn btn-primary" onclick="createApplySm()">
-    <span>📝</span> Create SM Apply Screen
-  </button>
-  <button class="btn btn-primary" onclick="createSubmittedSm()">
-    <span>📬</span> Create SM Submitted Screen
-  </button>
-  <button class="btn btn-primary" onclick="createUnderReviewSm()">
-    <span>⏳</span> Create SM Under Review Screen
-  </button>
-  <button class="btn btn-primary" onclick="createApprovedSm()">
-    <span>✅</span> Create SM Approved Screen
-  </button>
+<div class="section-label">Onboarding Slides</div>
+<button class="btn btn-primary" onclick="createOnboarding1()">
+  <span>🎓</span> Slide 1 — Find Your Match
+</button>
+<button class="btn btn-primary" onclick="createOnboarding2()">
+  <span>📝</span> Slide 2 — Apply with Ease
+</button>
+<button class="btn btn-primary" onclick="createOnboarding3()">
+  <span>🏆</span> Slide 3 — Track Your Journey
+</button>
 
-  <!-- Ayala Foundation -->
-  <button class="btn btn-primary" onclick="createApplyAyala()">
-    <span>📝</span> Create Ayala Apply Screen
-  </button>
-  <button class="btn btn-primary" onclick="createSubmittedAyala()">
-    <span>📬</span> Create Ayala Submitted Screen
-  </button>
-  <button class="btn btn-primary" onclick="createUnderReviewAyala()">
-    <span>⏳</span> Create Ayala Under Review Screen
-  </button>
-  <button class="btn btn-primary" onclick="createApprovedAyala()">
-    <span>✅</span> Create Ayala Approved Screen
-  </button>
+<div class="section-label">Scholarship Detail Screens</div>
+<button class="btn btn-primary" onclick="createChedDetail()">
+  <span>🎓</span> CHED Full Merit Detail
+</button>
+<button class="btn btn-primary" onclick="createSmDetail()">
+  <span>🛍️</span> SM Foundation Scholar Detail
+</button>
+<button class="btn btn-primary" onclick="createAyalaDetail()">
+  <span>🏛️</span> Ayala Foundation Grant Detail
+</button>
+<button class="btn btn-secondary" onclick="createFilterChips()">
+  <span>🏷️</span> Filter Chip Active States
+</button>
 
-  <!-- Components -->
+<!-- Components -->
 <div class="section-label">Generate Components</div>
 <button class="btn btn-secondary" onclick="createComponents()">
   <span>🧩</span> Drop All Components to Canvas
@@ -306,15 +281,6 @@
   function createDetails() {
     parent.postMessage({ pluginMessage: { type: 'create-details' } }, '*');
   }
-  function createDetailsChed() {
-    parent.postMessage({ pluginMessage: { type: 'create-details-ched' } }, '*');
-  }
-  function createDetailsSm() {
-    parent.postMessage({ pluginMessage: { type: 'create-details-sm' } }, '*');
-  }
-  function createDetailsAyala() {
-    parent.postMessage({ pluginMessage: { type: 'create-details-ayala' } }, '*');
-  }
   function createProfile() {
     parent.postMessage({ pluginMessage: { type: 'create-profile' } }, '*');
   }
@@ -333,44 +299,29 @@
   function createApproved() {
     parent.postMessage({ pluginMessage: { type: 'create-approved' } }, '*');
   }
-  function createApplyChed() {
-    parent.postMessage({ pluginMessage: { type: 'create-apply-ched' } }, '*');
-  }
-  function createSubmittedChed() {
-    parent.postMessage({ pluginMessage: { type: 'create-submitted-ched' } }, '*');
-  }
-  function createUnderReviewChed() {
-    parent.postMessage({ pluginMessage: { type: 'create-under-review-ched' } }, '*');
-  }
-  function createApprovedChed() {
-    parent.postMessage({ pluginMessage: { type: 'create-approved-ched' } }, '*');
-  }
-  function createApplySm() {
-    parent.postMessage({ pluginMessage: { type: 'create-apply-sm' } }, '*');
-  }
-  function createSubmittedSm() {
-    parent.postMessage({ pluginMessage: { type: 'create-submitted-sm' } }, '*');
-  }
-  function createUnderReviewSm() {
-    parent.postMessage({ pluginMessage: { type: 'create-under-review-sm' } }, '*');
-  }
-  function createApprovedSm() {
-    parent.postMessage({ pluginMessage: { type: 'create-approved-sm' } }, '*');
-  }
-  function createApplyAyala() {
-    parent.postMessage({ pluginMessage: { type: 'create-apply-ayala' } }, '*');
-  }
-  function createSubmittedAyala() {
-    parent.postMessage({ pluginMessage: { type: 'create-submitted-ayala' } }, '*');
-  }
-  function createUnderReviewAyala() {
-    parent.postMessage({ pluginMessage: { type: 'create-under-review-ayala' } }, '*');
-  }
-  function createApprovedAyala() {
-    parent.postMessage({ pluginMessage: { type: 'create-approved-ayala' } }, '*');
-  }
   function createComponents() {
     parent.postMessage({ pluginMessage: { type: 'create-components' } }, '*');
+  }
+  function createOnboarding1() {
+    parent.postMessage({ pluginMessage: { type: 'create-onboarding-1' } }, '*');
+  }
+  function createOnboarding2() {
+    parent.postMessage({ pluginMessage: { type: 'create-onboarding-2' } }, '*');
+  }
+  function createOnboarding3() {
+    parent.postMessage({ pluginMessage: { type: 'create-onboarding-3' } }, '*');
+  }
+  function createChedDetail() {
+    parent.postMessage({ pluginMessage: { type: 'create-ched-detail' } }, '*');
+  }
+  function createSmDetail() {
+    parent.postMessage({ pluginMessage: { type: 'create-sm-detail' } }, '*');
+  }
+  function createAyalaDetail() {
+    parent.postMessage({ pluginMessage: { type: 'create-ayala-detail' } }, '*');
+  }
+  function createFilterChips() {
+    parent.postMessage({ pluginMessage: { type: 'create-filter-chips' } }, '*');
   }
   function cancel() {
     parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');

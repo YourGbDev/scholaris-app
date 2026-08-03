@@ -1017,84 +1017,6 @@ figma.ui.onmessage = async (msg) => {
     figma.notify('✅ Scholarship Details screen created!');
   }
 
-  // ── 8a. CHED FULL MERIT DETAILS ───────────────────────────────────────────
-  if (msg.type === 'create-details-ched') {
-    await createDetailsScreen({
-      frameName: 'Scholaris — CHED Full Merit',
-      schName: 'CHED Full Merit Scholarship',
-      orgName: 'Commission on Higher Education',
-      badgeLabel: 'Under Review',
-      badgeBg: { r: 0.5, g: 0.5, b: 0.5 },
-      badgeBgOp: 0.2,
-      badgeTxt: { r: 0.3, g: 0.3, b: 0.3 },
-      infoItems: [
-        { icon: '₱', label: 'Amount', value: '60,000/yr' },
-        { icon: '📅', label: 'Deadline', value: 'Sep 15' },
-        { icon: '🎓', label: 'Slots', value: '1,000' },
-      ],
-      aboutText: 'The CHED Full Merit Scholarship Program provides financial assistance to academically outstanding Filipino students pursuing undergraduate degrees in recognized higher education institutions. Scholars receive tuition assistance and educational support throughout their studies.',
-      requirements: [
-        '📄  Completed Application Form',
-        '🪪  Valid School ID',
-        '📑  Certified True Copy of Grades',
-        '🏠  Certificate of Residency',
-        '👨‍👩‍👧  Parent\'s Income Tax Return',
-      ],
-    });
-  }
-
-  // ── 8b. SM FOUNDATION DETAILS ─────────────────────────────────────────────
-  if (msg.type === 'create-details-sm') {
-    await createDetailsScreen({
-      frameName: 'Scholaris — SM Foundation',
-      schName: 'SM Foundation Scholarship',
-      orgName: 'SM Foundation Inc.',
-      badgeLabel: 'Matched',
-      badgeBg: BRAND.colors.goldenOpportunity,
-      badgeBgOp: 0.25,
-      badgeTxt: BRAND.colors.goldenOpportunity,
-      infoItems: [
-        { icon: '₱', label: 'Amount', value: '25,000/yr' },
-        { icon: '📅', label: 'Deadline', value: 'Oct 1' },
-        { icon: '🎓', label: 'Slots', value: '500' },
-      ],
-      aboutText: 'The SM Foundation Scholarship Program provides financial assistance to deserving students with academic potential. Scholars receive tuition support, monthly allowance, leadership development, and employment opportunities after graduation.',
-      requirements: [
-        '📄  Application Form',
-        '🪪  Valid School ID',
-        '📑  Grade Report',
-        '🏠  Proof of Residence',
-        '✍  Recommendation Letter',
-      ],
-    });
-  }
-
-  // ── 8c. AYALA FOUNDATION DETAILS ──────────────────────────────────────────
-  if (msg.type === 'create-details-ayala') {
-    await createDetailsScreen({
-      frameName: 'Scholaris — Ayala Foundation',
-      schName: 'Ayala Foundation Grant',
-      orgName: 'Ayala Foundation',
-      badgeLabel: 'Approved',
-      badgeBg: BRAND.colors.bridgeGreen,
-      badgeBgOp: 0.15,
-      badgeTxt: BRAND.colors.bridgeGreen,
-      infoItems: [
-        { icon: '₱', label: 'Amount', value: 'TBD' },
-        { icon: '📅', label: 'Deadline', value: 'TBD' },
-        { icon: '🎓', label: 'Slots', value: 'Limited' },
-      ],
-      aboutText: 'The Ayala Foundation Grant supports students who demonstrate academic excellence, leadership potential, and commitment to community development. Scholarship details vary depending on partner institutions and available funding.',
-      requirements: [
-        '📄  Application Form',
-        '📑  Academic Transcript',
-        '🪪  Valid Identification',
-        '🏆  Leadership Certificates',
-        '📝  Personal Essay',
-      ],
-    });
-  }
-
   // ── 9. PROFILE SCREEN ────────────────────────────────────────────────────
   if (msg.type === 'create-profile') {
     await loadFonts();
@@ -1830,530 +1752,394 @@ figma.ui.onmessage = async (msg) => {
     figma.notify('✅ Approved screen created!');
   }
 
-  // ── 8d. CHED APPLY SCREEN ──────────────────────────────────────────────────
-  if (msg.type === 'create-apply-ched') {
-    await createApplyScreen({
-      frameName: 'Scholaris — Apply (CHED)',
-      schName: 'CHED Full Merit Scholarship',
-    });
+
+  // ── ONBOARDING SLIDE 1 — "Find Your Match" ──────────────────────────────
+  if (msg.type === 'create-onboarding-1') {
+    await loadFonts();
+    const frame = figma.createFrame();
+    frame.name = 'Scholaris — Onboarding 1';
+    frame.resize(440, 956);
+    frame.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
+    figma.currentPage.appendChild(frame);
+
+    // Green illustration area (top half)
+    const illustBg = figma.createRectangle();
+    illustBg.resize(440, 480); illustBg.x = 0; illustBg.y = 0;
+    illustBg.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
+    frame.appendChild(illustBg);
+
+    // Subtle glow circle behind cap
+    const glow = figma.createEllipse();
+    glow.resize(280, 280); glow.x = 80; glow.y = 90;
+    glow.fills = [{ type: 'SOLID', color: BRAND.colors.white, opacity: 0.06 }];
+    frame.appendChild(glow);
+
+    // Graduation cap illustration — white circle bg + emoji
+    const capCircle = figma.createEllipse();
+    capCircle.resize(200, 200); capCircle.x = 120; capCircle.y = 120;
+    capCircle.fills = [{ type: 'SOLID', color: BRAND.colors.white, opacity: 0.12 }];
+    frame.appendChild(capCircle);
+
+    // Cap emoji centered
+    const capEmoji = figma.createText();
+    capEmoji.fontName = F.poppinsBold;
+    capEmoji.characters = '🎓'; capEmoji.fontSize = 100;
+    capEmoji.textAlignHorizontal = 'CENTER'; capEmoji.textAlignVertical = 'CENTER';
+    capEmoji.resize(200, 200); capEmoji.x = 120; capEmoji.y = 120;
+    frame.appendChild(capEmoji);
+
+    // Gold accent ring around circle
+    const capRing = figma.createEllipse();
+    capRing.resize(220, 220); capRing.x = 110; capRing.y = 110;
+    capRing.fills = [];
+    capRing.strokes = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.4 }];
+    capRing.strokeWeight = 3; capRing.strokeAlign = 'CENTER';
+    frame.appendChild(capRing);
+
+    // Small gold dot accents
+    const dotAccents = [{x:110,y:110},{x:320,y:115},{x:105,y:305},{x:325,y:300}];
+    for (const d of dotAccents) {
+      const dot = figma.createEllipse();
+      dot.resize(10, 10); dot.x = d.x; dot.y = d.y;
+      dot.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.5 }];
+      frame.appendChild(dot);
+    }
+
+    // Floating sparkle dots
+    const sparklePositions = [{x:90,y:130,r:6},{x:340,y:150,r:4},{x:80,y:300,r:5},{x:350,y:280,r:7},{x:200,y:380,r:4}];
+    for (const sp of sparklePositions) {
+      const sparkle = figma.createEllipse();
+      sparkle.resize(sp.r*2, sp.r*2); sparkle.x = sp.x; sparkle.y = sp.y;
+      sparkle.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.4 }];
+      frame.appendChild(sparkle);
+    }
+
+    // Curved divider (rectangle with rounded top to simulate wave)
+    const divider = figma.createRectangle();
+    divider.resize(440, 60); divider.x = 0; divider.y = 440;
+    divider.cornerRadius = 32; divider.cornerRadius = 0;
+    divider.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
+    frame.appendChild(divider);
+
+    // Title
+    const titleTxt = figma.createText();
+    titleTxt.fontName = F.poppinsBold;
+    titleTxt.characters = 'Find Your Match'; titleTxt.fontSize = 28;
+    titleTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
+    titleTxt.textAlignHorizontal = 'CENTER';
+    titleTxt.resize(384, 40); titleTxt.x = 28; titleTxt.y = 500;
+    frame.appendChild(titleTxt);
+
+    // Description
+    const descTxt = figma.createText();
+    descTxt.fontName = F.openSansRegular;
+    descTxt.characters = 'We connect you to scholarships that fit your profile, course, and goals.';
+    descTxt.fontSize = 15; descTxt.lineHeight = { value: 24, unit: 'PIXELS' };
+    descTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.6 }];
+    descTxt.textAlignHorizontal = 'CENTER';
+    descTxt.resize(320, 72); descTxt.x = 60; descTxt.y = 556;
+    frame.appendChild(descTxt);
+
+    // Dots (dot 1 active)
+    const dotColors = [true, false, false];
+    let dx = 196;
+    for (let i = 0; i < 3; i++) {
+      const dot = figma.createEllipse();
+      dot.resize(dotColors[i] ? 24 : 8, 8);
+      dot.x = dx; dot.y = 660;
+      dot.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen, opacity: dotColors[i] ? 1 : 0.25 }];
+      frame.appendChild(dot);
+      dx += dotColors[i] ? 32 : 16;
+    }
+
+    // Skip button (left)
+    const skipTxt = figma.createText();
+    skipTxt.fontName = F.openSansSemi; skipTxt.characters = 'Skip'; skipTxt.fontSize = 15;
+    skipTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.4 }];
+    skipTxt.x = 40; skipTxt.y = 820;
+    frame.appendChild(skipTxt);
+
+    // Next button (right, green pill)
+    const nextBtn = figma.createFrame();
+    nextBtn.resize(140, 52); nextBtn.x = 260; nextBtn.y = 808;
+    nextBtn.cornerRadius = BRAND.buttonRadius;
+    nextBtn.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
+    frame.appendChild(nextBtn);
+    const nextTxt = figma.createText();
+    nextTxt.fontName = F.openSansSemi; nextTxt.characters = 'Next →'; nextTxt.fontSize = 15;
+    nextTxt.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
+    nextTxt.textAlignHorizontal = 'CENTER'; nextTxt.textAlignVertical = 'CENTER';
+    nextTxt.resize(140, 52); nextBtn.appendChild(nextTxt);
+
+    figma.viewport.scrollAndZoomIntoView([frame]);
+    figma.notify('✅ Onboarding Slide 1 created!');
   }
 
-  // ── 8e. SM APPLY SCREEN ────────────────────────────────────────────────────
-  if (msg.type === 'create-apply-sm') {
-    await createApplyScreen({
-      frameName: 'Scholaris — Apply (SM)',
-      schName: 'SM Foundation Scholarship',
-    });
+  // ── ONBOARDING SLIDE 2 — "Apply with Ease" ──────────────────────────────
+  if (msg.type === 'create-onboarding-2') {
+    await loadFonts();
+    const frame = figma.createFrame();
+    frame.name = 'Scholaris — Onboarding 2';
+    frame.resize(440, 956);
+    frame.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
+    figma.currentPage.appendChild(frame);
+
+    // Green illustration area
+    const illustBg = figma.createRectangle();
+    illustBg.resize(440, 480); illustBg.x = 0; illustBg.y = 0;
+    illustBg.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
+    frame.appendChild(illustBg);
+
+    // Glow circle
+    const glow = figma.createEllipse();
+    glow.resize(260, 260); glow.x = 90; glow.y = 100;
+    glow.fills = [{ type: 'SOLID', color: BRAND.colors.white, opacity: 0.06 }];
+    frame.appendChild(glow);
+
+    // Document illustration — checkmark card
+    const docCard = figma.createFrame();
+    docCard.resize(160, 200); docCard.x = 140; docCard.y = 120;
+    docCard.cornerRadius = 12;
+    docCard.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
+    docCard.effects = [{ type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.15 }, offset: { x: 0, y: 8 }, radius: 20, spread: 0, visible: true, blendMode: 'NORMAL' }];
+    frame.appendChild(docCard);
+
+    for (let i = 0; i < 4; i++) {
+      const line = figma.createRectangle();
+      line.resize(i === 0 ? 100 : 120, 8); line.x = 20; line.y = 30 + i * 36;
+      line.cornerRadius = 4;
+      line.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.12 }];
+      docCard.appendChild(line);
+    }
+
+    const checkCircle = figma.createEllipse();
+    checkCircle.resize(36, 36); checkCircle.x = 102; checkCircle.y = 148;
+    checkCircle.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity }];
+    docCard.appendChild(checkCircle);
+
+    const checkTxt = figma.createText();
+    checkTxt.fontName = { family: 'Open Sans', style: 'SemiBold' };
+    checkTxt.characters = '✓'; checkTxt.fontSize = 18;
+    checkTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
+    checkTxt.textAlignHorizontal = 'CENTER';
+    checkTxt.textAlignVertical = 'CENTER';
+    checkTxt.resize(36, 36);
+    checkCircle.appendChild(checkTxt);
+
+    // Floating mini cards (multiple scholarships)
+    const miniCard1 = figma.createFrame();
+    miniCard1.resize(120, 44); miniCard1.x = 280; miniCard1.y = 140;
+    miniCard1.cornerRadius = 10;
+    miniCard1.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.15 }];
+    miniCard1.rotation = 8;
+    frame.appendChild(miniCard1);
+    const m1txt = figma.createText();
+    m1txt.fontName = F.openSansSemi; m1txt.characters = 'DOST-SEI'; m1txt.fontSize = 11;
+    m1txt.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
+    m1txt.x = 10; m1txt.y = 14; miniCard1.appendChild(m1txt);
+
+    const miniCard2 = figma.createFrame();
+    miniCard2.resize(110, 44); miniCard2.x = 50; miniCard2.y = 300;
+    miniCard2.cornerRadius = 10;
+    miniCard2.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.08 }];
+    miniCard2.rotation = -6;
+    frame.appendChild(miniCard2);
+    const m2txt = figma.createText();
+    m2txt.fontName = F.openSansSemi; m2txt.characters = 'CHED Merit'; m2txt.fontSize = 11;
+    m2txt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
+    m2txt.x = 10; m2txt.y = 14; miniCard2.appendChild(m2txt);
+
+    // Divider
+    const divider = figma.createRectangle();
+    divider.resize(440, 60); divider.x = 0; divider.y = 440;
+    divider.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
+    frame.appendChild(divider);
+
+    // Title
+    const titleTxt = figma.createText();
+    titleTxt.fontName = F.poppinsBold; titleTxt.characters = 'Apply with Ease'; titleTxt.fontSize = 28;
+    titleTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
+    titleTxt.textAlignHorizontal = 'CENTER';
+    titleTxt.resize(384, 40); titleTxt.x = 28; titleTxt.y = 500;
+    frame.appendChild(titleTxt);
+
+    // Description
+    const descTxt = figma.createText();
+    descTxt.fontName = F.openSansRegular;
+    descTxt.characters = 'Upload your documents once and apply to multiple scholarships in just a few taps.';
+    descTxt.fontSize = 15; descTxt.lineHeight = { value: 24, unit: 'PIXELS' };
+    descTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.6 }];
+    descTxt.textAlignHorizontal = 'CENTER';
+    descTxt.resize(320, 72); descTxt.x = 60; descTxt.y = 556;
+    frame.appendChild(descTxt);
+
+    // Dots (dot 2 active)
+    const dotPositions = [false, true, false];
+    let dx = 196;
+    for (let i = 0; i < 3; i++) {
+      const dot = figma.createEllipse();
+      dot.resize(dotPositions[i] ? 24 : 8, 8);
+      dot.x = dx; dot.y = 660;
+      dot.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen, opacity: dotPositions[i] ? 1 : 0.25 }];
+      frame.appendChild(dot);
+      dx += dotPositions[i] ? 32 : 16;
+    }
+
+    // Skip
+    const skipTxt = figma.createText();
+    skipTxt.fontName = F.openSansSemi; skipTxt.characters = 'Skip'; skipTxt.fontSize = 15;
+    skipTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.4 }];
+    skipTxt.x = 40; skipTxt.y = 820;
+    frame.appendChild(skipTxt);
+
+    // Next button
+    const nextBtn = figma.createFrame();
+    nextBtn.resize(140, 52); nextBtn.x = 260; nextBtn.y = 808;
+    nextBtn.cornerRadius = BRAND.buttonRadius;
+    nextBtn.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
+    frame.appendChild(nextBtn);
+    const nextTxt = figma.createText();
+    nextTxt.fontName = F.openSansSemi; nextTxt.characters = 'Next →'; nextTxt.fontSize = 15;
+    nextTxt.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
+    nextTxt.textAlignHorizontal = 'CENTER'; nextTxt.textAlignVertical = 'CENTER';
+    nextTxt.resize(140, 52); nextBtn.appendChild(nextTxt);
+
+    figma.viewport.scrollAndZoomIntoView([frame]);
+    figma.notify('✅ Onboarding Slide 2 created!');
   }
 
-  // ── 8f. AYALA APPLY SCREEN ────────────────────────────────────────────────
-  if (msg.type === 'create-apply-ayala') {
-    await createApplyScreen({
-      frameName: 'Scholaris — Apply (Ayala)',
-      schName: 'Ayala Foundation Grant',
-    });
-  }
+  // ── ONBOARDING SLIDE 3 — "Track Your Journey" ───────────────────────────
+  if (msg.type === 'create-onboarding-3') {
+    await loadFonts();
+    const frame = figma.createFrame();
+    frame.name = 'Scholaris — Onboarding 3';
+    frame.resize(440, 956);
+    frame.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
+    figma.currentPage.appendChild(frame);
 
-  // ── 8g. CHED SUBMITTED SCREEN ─────────────────────────────────────────────
-  if (msg.type === 'create-submitted-ched') {
-    await createSubmittedScreen({
-      frameName: 'Scholaris — Submitted (CHED)',
-      schName: 'CHED Full Merit Scholarship',
-    });
-  }
+    // Green illustration area
+    const illustBg = figma.createRectangle();
+    illustBg.resize(440, 480); illustBg.x = 0; illustBg.y = 0;
+    illustBg.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
+    frame.appendChild(illustBg);
 
-  // ── 8h. SM SUBMITTED SCREEN ───────────────────────────────────────────────
-  if (msg.type === 'create-submitted-sm') {
-    await createSubmittedScreen({
-      frameName: 'Scholaris — Submitted (SM)',
-      schName: 'SM Foundation Scholarship',
-    });
-  }
+    // Gold glow circle (large, behind trophy)
+    const glowOuter = figma.createEllipse();
+    glowOuter.resize(300, 300); glowOuter.x = 70; glowOuter.y = 80;
+    glowOuter.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.08 }];
+    frame.appendChild(glowOuter);
 
-  // ── 8i. AYALA SUBMITTED SCREEN ────────────────────────────────────────────
-  if (msg.type === 'create-submitted-ayala') {
-    await createSubmittedScreen({
-      frameName: 'Scholaris — Submitted (Ayala)',
-      schName: 'Ayala Foundation Grant',
-    });
-  }
+    const glowInner = figma.createEllipse();
+    glowInner.resize(200, 200); glowInner.x = 120; glowInner.y = 130;
+    glowInner.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.12 }];
+    frame.appendChild(glowInner);
 
-  // ── 8j. CHED UNDER REVIEW SCREEN ─────────────────────────────────────────
-  if (msg.type === 'create-under-review-ched') {
-    await createUnderReviewScreen({
-      frameName: 'Scholaris — Under Review (CHED)',
-      schName: 'CHED Full Merit Scholarship',
-      orgName: 'Commission on Higher Education',
-    });
-  }
+    // Trophy illustration — gold circle bg + emoji
+    const trophyCircle = figma.createEllipse();
+    trophyCircle.resize(200, 200); trophyCircle.x = 120; trophyCircle.y = 120;
+    trophyCircle.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.15 }];
+    frame.appendChild(trophyCircle);
 
-  // ── 8k. SM UNDER REVIEW SCREEN ───────────────────────────────────────────
-  if (msg.type === 'create-under-review-sm') {
-    await createUnderReviewScreen({
-      frameName: 'Scholaris — Under Review (SM)',
-      schName: 'SM Foundation Scholarship',
-      orgName: 'SM Foundation Inc.',
-    });
-  }
+    // Trophy emoji
+    const trophyEmoji = figma.createText();
+    trophyEmoji.fontName = F.poppinsBold;
+    trophyEmoji.characters = '🏆'; trophyEmoji.fontSize = 100;
+    trophyEmoji.textAlignHorizontal = 'CENTER'; trophyEmoji.textAlignVertical = 'CENTER';
+    trophyEmoji.resize(200, 200); trophyEmoji.x = 120; trophyEmoji.y = 120;
+    frame.appendChild(trophyEmoji);
 
-  // ── 8l. AYALA UNDER REVIEW SCREEN ────────────────────────────────────────
-  if (msg.type === 'create-under-review-ayala') {
-    await createUnderReviewScreen({
-      frameName: 'Scholaris — Under Review (Ayala)',
-      schName: 'Ayala Foundation Grant',
-      orgName: 'Ayala Foundation',
-    });
-  }
+    // Gold glow ring
+    const trophyRing = figma.createEllipse();
+    trophyRing.resize(240, 240); trophyRing.x = 100; trophyRing.y = 100;
+    trophyRing.fills = [];
+    trophyRing.strokes = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.35 }];
+    trophyRing.strokeWeight = 3; trophyRing.strokeAlign = 'CENTER';
+    frame.appendChild(trophyRing);
 
-  // ── 8m. CHED APPROVED SCREEN ──────────────────────────────────────────────
-  if (msg.type === 'create-approved-ched') {
-    await createApprovedScreen({
-      frameName: 'Scholaris — Approved (CHED)',
-      schName: 'CHED Full Merit Scholarship',
-      amount: '₱60,000 / year',
-    });
-  }
+    // Outer glow ring
+    const trophyRing2 = figma.createEllipse();
+    trophyRing2.resize(280, 280); trophyRing2.x = 80; trophyRing2.y = 80;
+    trophyRing2.fills = [];
+    trophyRing2.strokes = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.15 }];
+    trophyRing2.strokeWeight = 2; trophyRing2.strokeAlign = 'CENTER';
+    frame.appendChild(trophyRing2);
 
-  // ── 8n. SM APPROVED SCREEN ────────────────────────────────────────────────
-  if (msg.type === 'create-approved-sm') {
-    await createApprovedScreen({
-      frameName: 'Scholaris — Approved (SM)',
-      schName: 'SM Foundation Scholarship',
-      amount: '₱25,000 / year',
-    });
-  }
+    // Status pills floating around trophy
+    const statusPills = [
+      { label: 'Submitted', x: 40, y: 180, color: BRAND.colors.navyTrust },
+      { label: 'Under Review', x: 280, y: 160, color: BRAND.colors.goldenOpportunity },
+      { label: 'Approved ✓', x: 60, y: 320, color: BRAND.colors.bridgeGreen },
+    ];
+    for (const pill of statusPills) {
+      const pillFrame = figma.createFrame();
+      const pillW = pill.label.length * 8 + 24;
+      pillFrame.resize(pillW, 30); pillFrame.x = pill.x; pillFrame.y = pill.y;
+      pillFrame.cornerRadius = 50;
+      pillFrame.fills = [{ type: 'SOLID', color: pill.color, opacity: 0.15 }];
+      frame.appendChild(pillFrame);
+      const pillTxt = figma.createText();
+      pillTxt.fontName = F.openSansSemi; pillTxt.characters = pill.label; pillTxt.fontSize = 11;
+      pillTxt.fills = [{ type: 'SOLID', color: pill.color }];
+      pillTxt.textAlignHorizontal = 'CENTER'; pillTxt.textAlignVertical = 'CENTER';
+      pillTxt.resize(pillW, 30); pillFrame.appendChild(pillTxt);
+    }
 
-  // ── 8o. AYALA APPROVED SCREEN ─────────────────────────────────────────────
-  if (msg.type === 'create-approved-ayala') {
-    await createApprovedScreen({
-      frameName: 'Scholaris — Approved (Ayala)',
-      schName: 'Ayala Foundation Grant',
-      amount: 'TBD',
-    });
+    // Divider
+    const divider = figma.createRectangle();
+    divider.resize(440, 60); divider.x = 0; divider.y = 440;
+    divider.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
+    frame.appendChild(divider);
+
+    // Title
+    const titleTxt = figma.createText();
+    titleTxt.fontName = F.poppinsBold; titleTxt.characters = 'Track Your Journey'; titleTxt.fontSize = 28;
+    titleTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
+    titleTxt.textAlignHorizontal = 'CENTER';
+    titleTxt.resize(384, 40); titleTxt.x = 28; titleTxt.y = 500;
+    frame.appendChild(titleTxt);
+
+    // Description
+    const descTxt = figma.createText();
+    descTxt.fontName = F.openSansRegular;
+    descTxt.characters = 'Monitor your application status in real time, from submitted to approved.';
+    descTxt.fontSize = 15; descTxt.lineHeight = { value: 24, unit: 'PIXELS' };
+    descTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.6 }];
+    descTxt.textAlignHorizontal = 'CENTER';
+    descTxt.resize(320, 72); descTxt.x = 60; descTxt.y = 556;
+    frame.appendChild(descTxt);
+
+    // Dots (dot 3 active)
+    const dotPositions = [false, false, true];
+    let dx = 196;
+    for (let i = 0; i < 3; i++) {
+      const dot = figma.createEllipse();
+      dot.resize(dotPositions[i] ? 24 : 8, 8);
+      dot.x = dx; dot.y = 660;
+      dot.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen, opacity: dotPositions[i] ? 1 : 0.25 }];
+      frame.appendChild(dot);
+      dx += dotPositions[i] ? 32 : 16;
+    }
+
+    // Get Started button (full width, no Skip)
+    const getStartedBtn = figma.createFrame();
+    getStartedBtn.resize(360, 56); getStartedBtn.x = 40; getStartedBtn.y = 808;
+    getStartedBtn.cornerRadius = BRAND.buttonRadius;
+    getStartedBtn.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
+    frame.appendChild(getStartedBtn);
+    const getStartedTxt = figma.createText();
+    getStartedTxt.fontName = F.poppinsBold; getStartedTxt.characters = 'Get Started'; getStartedTxt.fontSize = 16;
+    getStartedTxt.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
+    getStartedTxt.textAlignHorizontal = 'CENTER'; getStartedTxt.textAlignVertical = 'CENTER';
+    getStartedTxt.resize(360, 56); getStartedBtn.appendChild(getStartedTxt);
+
+    figma.viewport.scrollAndZoomIntoView([frame]);
+    figma.notify('✅ Onboarding Slide 3 created!');
   }
 
   if (msg.type === 'cancel') figma.closePlugin();
 };
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
-
-async function createApplyScreen(params) {
-  await loadFonts();
-  const { frameName, schName } = params;
-  const frame = figma.createFrame();
-  frame.name = frameName;
-  frame.resize(440, 956);
-  frame.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
-  figma.currentPage.appendChild(frame);
-
-  const headerBg = figma.createRectangle();
-  headerBg.resize(440, 130); headerBg.x = 0; headerBg.y = 0;
-  headerBg.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  frame.appendChild(headerBg);
-
-  const arrowH = figma.createRectangle();
-  arrowH.resize(20, 3); arrowH.x = 28; arrowH.y = 67; arrowH.cornerRadius = 2;
-  arrowH.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  frame.appendChild(arrowH);
-
-  const title = figma.createText();
-  title.fontName = F.poppinsBold;
-  title.characters = 'Apply for Scholarship'; title.fontSize = 18;
-  title.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  title.x = 60; title.y = 58;
-  frame.appendChild(title);
-
-  const sName = figma.createText();
-  sName.fontName = F.openSansRegular;
-  sName.characters = schName; sName.fontSize = 13;
-  sName.fills = [{ type: 'SOLID', color: BRAND.colors.white, opacity: 0.75 }];
-  sName.x = 60; sName.y = 84;
-  frame.appendChild(sName);
-
-  const progBg = figma.createRectangle();
-  progBg.resize(384, 6); progBg.x = 28; progBg.y = 148;
-  progBg.cornerRadius = 3;
-  progBg.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.1 }];
-  frame.appendChild(progBg);
-  const progFill = figma.createRectangle();
-  progFill.resize(192, 6); progFill.x = 28; progFill.y = 148;
-  progFill.cornerRadius = 3;
-  progFill.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity }];
-  frame.appendChild(progFill);
-  const progTxt = figma.createText();
-  progTxt.fontName = F.openSansRegular;
-  progTxt.characters = 'Step 2 of 4 — Personal Information'; progTxt.fontSize = 11;
-  progTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.5 }];
-  progTxt.x = 28; progTxt.y = 162;
-  frame.appendChild(progTxt);
-
-  const formHead = figma.createText();
-  formHead.fontName = F.poppinsBold;
-  formHead.characters = 'Personal Information'; formHead.fontSize = 18;
-  formHead.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  formHead.x = 28; formHead.y = 196;
-  frame.appendChild(formHead);
-
-  const fields = ['Full Name', 'Date of Birth', 'Contact Number', 'Home Address', 'Course & Year Level', 'GPA / Grade Average'];
-  let fieldY = 234;
-  for (const field of fields) {
-    const label = figma.createText();
-    label.fontName = F.openSansSemi;
-    label.characters = field; label.fontSize = 12;
-    label.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.7 }];
-    label.x = 28; label.y = fieldY;
-    frame.appendChild(label);
-    frame.appendChild(createInputField(field, 28, fieldY + 20, 384));
-    fieldY += 90;
-  }
-
-  frame.appendChild(createButton('Next →', 28, 848, 384));
-  frame.appendChild(createBottomNav('Apply', frame));
-  figma.viewport.scrollAndZoomIntoView([frame]);
-  figma.notify('✅ ' + schName + ' Apply screen created!');
-}
-
-async function createSubmittedScreen(params) {
-  await loadFonts();
-  const { frameName, schName } = params;
-  const frame = figma.createFrame();
-  frame.name = frameName;
-  frame.resize(440, 956);
-  frame.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
-  figma.currentPage.appendChild(frame);
-
-  const blob = figma.createEllipse();
-  blob.resize(440, 440); blob.x = 0; blob.y = -100;
-  blob.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen, opacity: 0.06 }];
-  frame.appendChild(blob);
-
-  const checkCircle = figma.createEllipse();
-  checkCircle.resize(120, 120); checkCircle.x = 160; checkCircle.y = 180;
-  checkCircle.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen, opacity: 0.12 }];
-  checkCircle.strokes = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  checkCircle.strokeWeight = 3; checkCircle.strokeAlign = 'INSIDE';
-  frame.appendChild(checkCircle);
-
-  const checkL = figma.createRectangle();
-  checkL.resize(3, 30); checkL.x = 197; checkL.y = 238;
-  checkL.cornerRadius = 2; checkL.rotation = -45;
-  checkL.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  frame.appendChild(checkL);
-  const checkR = figma.createRectangle();
-  checkR.resize(3, 50); checkR.x = 218; checkR.y = 218;
-  checkR.cornerRadius = 2; checkR.rotation = 45;
-  checkR.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  frame.appendChild(checkR);
-
-  const heading = figma.createText();
-  heading.fontName = F.poppinsBold;
-  heading.characters = 'Application Submitted!'; heading.fontSize = 24;
-  heading.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  heading.textAlignHorizontal = 'CENTER';
-  heading.resize(384, 36); heading.x = 28; heading.y = 326;
-  frame.appendChild(heading);
-
-  const sub = figma.createText();
-  sub.fontName = F.openSansRegular;
-  sub.characters = 'Your application for ' + schName + '\nhas been successfully submitted.'; sub.fontSize = 14;
-  sub.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.6 }];
-  sub.textAlignHorizontal = 'CENTER';
-  sub.lineHeight = { value: 24, unit: 'PIXELS' };
-  sub.resize(384, 56); sub.x = 28; sub.y = 374;
-  frame.appendChild(sub);
-
-  const trackCard = figma.createFrame();
-  trackCard.resize(384, 80); trackCard.x = 28; trackCard.y = 454;
-  trackCard.cornerRadius = BRAND.cornerRadius;
-  trackCard.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  trackCard.effects = [{ type: 'DROP_SHADOW', color: { r: 0.106, g: 0.227, b: 0.361, a: 0.06 }, offset: { x: 0, y: 2 }, radius: 8, spread: 0, visible: true, blendMode: 'NORMAL' }];
-  frame.appendChild(trackCard);
-  const trackLabel = figma.createText();
-  trackLabel.fontName = F.openSansRegular;
-  trackLabel.characters = 'Tracking ID'; trackLabel.fontSize = 11;
-  trackLabel.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.5 }];
-  trackLabel.textAlignHorizontal = 'CENTER';
-  trackLabel.resize(384, 20); trackLabel.y = 14;
-  trackCard.appendChild(trackLabel);
-  const trackId = figma.createText();
-  trackId.fontName = { family: 'Roboto Mono', style: 'Regular' };
-  trackId.characters = 'SCH-2025-00847'; trackId.fontSize = 20;
-  trackId.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  trackId.textAlignHorizontal = 'CENTER';
-  trackId.resize(384, 30); trackId.y = 40;
-  trackCard.appendChild(trackId);
-
-  const nextLabel = figma.createText();
-  nextLabel.fontName = F.poppinsSemi;
-  nextLabel.characters = 'What happens next?'; nextLabel.fontSize = 16;
-  nextLabel.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  nextLabel.x = 28; nextLabel.y = 560;
-  frame.appendChild(nextLabel);
-
-  const steps = [
-    '1. Your documents will be reviewed within 5-7 business days',
-    '2. You will receive an email notification on your status',
-    '3. Check your application status anytime in the app',
-  ];
-  let stepY = 596;
-  for (const step of steps) {
-    const stepTxt = figma.createText();
-    stepTxt.fontName = F.openSansRegular;
-    stepTxt.characters = step; stepTxt.fontSize = 13;
-    stepTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.65 }];
-    stepTxt.lineHeight = { value: 22, unit: 'PIXELS' };
-    stepTxt.resize(384, 44); stepTxt.x = 28; stepTxt.y = stepY;
-    frame.appendChild(stepTxt);
-    stepY += 52;
-  }
-
-  frame.appendChild(createButton('Go to Home', 28, 780, 384));
-  frame.appendChild(createOutlineButton('Track Application', 28, 844, 384));
-  frame.appendChild(createBottomNav('Apply', frame));
-  figma.viewport.scrollAndZoomIntoView([frame]);
-  figma.notify('✅ ' + schName + ' Submitted screen created!');
-}
-
-async function createUnderReviewScreen(params) {
-  await loadFonts();
-  await figma.loadFontAsync({ family: 'Roboto Mono', style: 'Regular' });
-  const { frameName, schName, orgName } = params;
-  const frame = figma.createFrame();
-  frame.name = frameName;
-  frame.resize(440, 956);
-  frame.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
-  figma.currentPage.appendChild(frame);
-
-  const headerBg = figma.createRectangle();
-  headerBg.resize(440, 160); headerBg.x = 0; headerBg.y = 0;
-  headerBg.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  frame.appendChild(headerBg);
-
-  const title = figma.createText();
-  title.fontName = F.poppinsBold;
-  title.characters = 'Application Status'; title.fontSize = 20;
-  title.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  title.x = 28; title.y = 64;
-  frame.appendChild(title);
-
-  const badge = figma.createFrame();
-  badge.resize(130, 30); badge.x = 28; badge.y = 100;
-  badge.cornerRadius = 50;
-  badge.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.25 }];
-  frame.appendChild(badge);
-  const badgeTxt = figma.createText();
-  badgeTxt.fontName = F.openSansSemi;
-  badgeTxt.characters = '⏳ Under Review'; badgeTxt.fontSize = 12;
-  badgeTxt.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity }];
-  badgeTxt.textAlignHorizontal = 'CENTER'; badgeTxt.textAlignVertical = 'CENTER';
-  badgeTxt.resize(130, 30);
-  badge.appendChild(badgeTxt);
-
-  const infoCard = figma.createFrame();
-  infoCard.resize(384, 90); infoCard.x = 28; infoCard.y = 180;
-  infoCard.cornerRadius = BRAND.cornerRadius;
-  infoCard.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  infoCard.effects = [{ type: 'DROP_SHADOW', color: { r: 0.106, g: 0.227, b: 0.361, a: 0.06 }, offset: { x: 0, y: 2 }, radius: 8, spread: 0, visible: true, blendMode: 'NORMAL' }];
-  frame.appendChild(infoCard);
-  const schTitle = figma.createText();
-  schTitle.fontName = F.poppinsSemi;
-  schTitle.characters = schName; schTitle.fontSize = 15;
-  schTitle.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  schTitle.x = 16; schTitle.y = 14;
-  infoCard.appendChild(schTitle);
-  const schOrg = figma.createText();
-  schOrg.fontName = F.openSansRegular;
-  schOrg.characters = orgName; schOrg.fontSize = 12;
-  schOrg.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.55 }];
-  schOrg.x = 16; schOrg.y = 38;
-  infoCard.appendChild(schOrg);
-  const trackTxt = figma.createText();
-  trackTxt.fontName = { family: 'Roboto Mono', style: 'Regular' };
-  trackTxt.characters = 'ID: SCH-2025-00847'; trackTxt.fontSize = 11;
-  trackTxt.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  trackTxt.x = 16; trackTxt.y = 62;
-  infoCard.appendChild(trackTxt);
-
-  const timelineLabel = figma.createText();
-  timelineLabel.fontName = F.poppinsSemi;
-  timelineLabel.characters = 'Application Timeline'; timelineLabel.fontSize = 16;
-  timelineLabel.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  timelineLabel.x = 28; timelineLabel.y = 296;
-  frame.appendChild(timelineLabel);
-
-  const timelineSteps = [
-    { label: 'Application Submitted', date: 'July 31, 2025', done: true },
-    { label: 'Documents Verified', date: 'Aug 2, 2025', done: true },
-    { label: 'Under Review', date: 'In progress...', done: false, active: true },
-    { label: 'Final Decision', date: 'Est. Aug 15, 2025', done: false },
-  ];
-
-  let ty = 336;
-  for (const step of timelineSteps) {
-    const dot = figma.createEllipse();
-    dot.resize(16, 16); dot.x = 28; dot.y = ty + 2;
-    dot.fills = [{ type: 'SOLID', color: step.done ? BRAND.colors.bridgeGreen : step.active ? BRAND.colors.goldenOpportunity : BRAND.colors.navyTrust, opacity: step.done || step.active ? 1 : 0.2 }];
-    frame.appendChild(dot);
-
-    if (timelineSteps.indexOf(step) < timelineSteps.length - 1) {
-      const line = figma.createRectangle();
-      line.resize(2, 40); line.x = 35; line.y = ty + 18;
-      line.fills = [{ type: 'SOLID', color: step.done ? BRAND.colors.bridgeGreen : BRAND.colors.navyTrust, opacity: step.done ? 0.5 : 0.15 }];
-      frame.appendChild(line);
-    }
-
-    const stepLabel = figma.createText();
-    stepLabel.fontName = step.active ? F.openSansSemi : F.openSansRegular;
-    stepLabel.characters = step.label; stepLabel.fontSize = 14;
-    stepLabel.fills = [{ type: 'SOLID', color: step.active ? BRAND.colors.goldenOpportunity : BRAND.colors.navyTrust, opacity: step.done || step.active ? 1 : 0.4 }];
-    stepLabel.x = 56; stepLabel.y = ty;
-    frame.appendChild(stepLabel);
-
-    const stepDate = figma.createText();
-    stepDate.fontName = F.openSansRegular;
-    stepDate.characters = step.date; stepDate.fontSize = 11;
-    stepDate.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.45 }];
-    stepDate.x = 56; stepDate.y = ty + 20;
-    frame.appendChild(stepDate);
-
-    ty += 68;
-  }
-
-  const estCard = figma.createFrame();
-  estCard.resize(384, 70); estCard.x = 28; estCard.y = 640;
-  estCard.cornerRadius = BRAND.cornerRadius;
-  estCard.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity, opacity: 0.1 }];
-  frame.appendChild(estCard);
-  const estTxt = figma.createText();
-  estTxt.fontName = F.openSansSemi;
-  estTxt.characters = '⏰ Estimated Decision: Aug 15, 2025'; estTxt.fontSize = 13;
-  estTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  estTxt.textAlignHorizontal = 'CENTER';
-  estTxt.resize(384, 24); estTxt.y = 24;
-  estCard.appendChild(estTxt);
-
-  frame.appendChild(createOutlineButton('Contact Support', 28, 740, 384));
-  frame.appendChild(createButton('Go to Home', 28, 804, 384));
-  frame.appendChild(createBottomNav('Apply', frame));
-  figma.viewport.scrollAndZoomIntoView([frame]);
-  figma.notify('✅ ' + schName + ' Under Review screen created!');
-}
-
-async function createApprovedScreen(params) {
-  await loadFonts();
-  await figma.loadFontAsync({ family: 'Roboto Mono', style: 'Regular' });
-  const { frameName, schName, amount } = params;
-  const frame = figma.createFrame();
-  frame.name = frameName;
-  frame.resize(440, 956);
-  frame.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
-  figma.currentPage.appendChild(frame);
-
-  const headerBg = figma.createRectangle();
-  headerBg.resize(440, 280); headerBg.x = 0; headerBg.y = 0;
-  headerBg.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  frame.appendChild(headerBg);
-
-  const confettiColors = [BRAND.colors.goldenOpportunity, BRAND.colors.white, BRAND.colors.coralConnect];
-  const confettiPositions = [[60,40],[120,20],[200,60],[300,30],[360,50],[80,100],[340,90],[160,110]];
-  for (let i = 0; i < confettiPositions.length; i++) {
-    const c = figma.createEllipse();
-    c.resize(8, 8); c.x = confettiPositions[i][0]; c.y = confettiPositions[i][1];
-    c.fills = [{ type: 'SOLID', color: confettiColors[i % 3], opacity: 0.7 }];
-    frame.appendChild(c);
-  }
-
-  const trophyCircle = figma.createEllipse();
-  trophyCircle.resize(100, 100); trophyCircle.x = 170; trophyCircle.y = 80;
-  trophyCircle.fills = [{ type: 'SOLID', color: BRAND.colors.white, opacity: 0.2 }];
-  frame.appendChild(trophyCircle);
-  const trophyTxt = figma.createText();
-  trophyTxt.fontName = F.poppinsBold;
-  trophyTxt.characters = '🏆'; trophyTxt.fontSize = 48;
-  trophyTxt.textAlignHorizontal = 'CENTER';
-  trophyTxt.resize(100, 70); trophyTxt.x = 170; trophyTxt.y = 98;
-  frame.appendChild(trophyTxt);
-
-  const congrats = figma.createText();
-  congrats.fontName = F.poppinsBold;
-  congrats.characters = 'Congratulations! 🎉'; congrats.fontSize = 24;
-  congrats.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  congrats.textAlignHorizontal = 'CENTER';
-  congrats.resize(384, 36); congrats.x = 28; congrats.y = 200;
-  frame.appendChild(congrats);
-
-  const conSub = figma.createText();
-  conSub.fontName = F.openSansRegular;
-  conSub.characters = 'Your scholarship has been approved!'; conSub.fontSize = 14;
-  conSub.fills = [{ type: 'SOLID', color: BRAND.colors.white, opacity: 0.8 }];
-  conSub.textAlignHorizontal = 'CENTER';
-  conSub.resize(384, 22); conSub.x = 28; conSub.y = 244;
-  frame.appendChild(conSub);
-
-  const awardCard = figma.createFrame();
-  awardCard.resize(384, 130); awardCard.x = 28; awardCard.y = 300;
-  awardCard.cornerRadius = BRAND.cornerRadius;
-  awardCard.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  awardCard.effects = [{ type: 'DROP_SHADOW', color: { r: 0.106, g: 0.227, b: 0.361, a: 0.08 }, offset: { x: 0, y: 4 }, radius: 16, spread: 0, visible: true, blendMode: 'NORMAL' }];
-  frame.appendChild(awardCard);
-
-  const awardAccent = figma.createRectangle();
-  awardAccent.resize(4, 90); awardAccent.x = 0; awardAccent.y = 20;
-  awardAccent.cornerRadius = 4;
-  awardAccent.fills = [{ type: 'SOLID', color: BRAND.colors.goldenOpportunity }];
-  awardCard.appendChild(awardAccent);
-
-  const schNameTxt = figma.createText();
-  schNameTxt.fontName = F.poppinsBold;
-  schNameTxt.characters = schName; schNameTxt.fontSize = 16;
-  schNameTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  schNameTxt.x = 20; schNameTxt.y = 18;
-  awardCard.appendChild(schNameTxt);
-
-  const awardAmount = figma.createText();
-  awardAmount.fontName = F.poppinsBold;
-  awardAmount.characters = amount; awardAmount.fontSize = 24;
-  awardAmount.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  awardAmount.x = 20; awardAmount.y = 50;
-  awardCard.appendChild(awardAmount);
-
-  const awardId = figma.createText();
-  awardId.fontName = { family: 'Roboto Mono', style: 'Regular' };
-  awardId.characters = 'ID: SCH-2025-00847'; awardId.fontSize = 11;
-  awardId.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.45 }];
-  awardId.x = 20; awardId.y = 92;
-  awardCard.appendChild(awardId);
-
-  const nextLabel = figma.createText();
-  nextLabel.fontName = F.poppinsSemi;
-  nextLabel.characters = 'Next Steps'; nextLabel.fontSize = 16;
-  nextLabel.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  nextLabel.x = 28; nextLabel.y = 454;
-  frame.appendChild(nextLabel);
-
-  const nextSteps = [
-    '✅  Check your email for the award letter',
-    '📄  Submit final acceptance form within 7 days',
-    '🏦  Provide bank details for disbursement',
-    '🎓  Maintain GPA requirements each semester',
-  ];
-  let nsY = 490;
-  for (const step of nextSteps) {
-    const stepTxt = figma.createText();
-    stepTxt.fontName = F.openSansRegular;
-    stepTxt.characters = step; stepTxt.fontSize = 13;
-    stepTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.75 }];
-    stepTxt.x = 28; stepTxt.y = nsY;
-    frame.appendChild(stepTxt);
-    nsY += 42;
-  }
-
-  frame.appendChild(createOutlineButton('Share Achievement 🎉', 28, 724, 384));
-  frame.appendChild(createButton('Go to Home', 28, 788, 384));
-  frame.appendChild(createBottomNav('Apply', frame));
-  figma.viewport.scrollAndZoomIntoView([frame]);
-  figma.notify('✅ ' + schName + ' Approved screen created!');
-}
 
 function createBottomNav(active, frame) {
   const navBar = figma.createFrame();
@@ -2616,189 +2402,6 @@ function createBadge(label, x, y) {
   return badge;
 }
 
-async function createDetailsScreen(params) {
-  await loadFonts();
-  const {
-    frameName,
-    schName,
-    orgName,
-    badgeLabel,
-    badgeBg,
-    badgeBgOp,
-    badgeTxt,
-    infoItems,
-    aboutText,
-    requirements
-  } = params;
-
-  const frame = figma.createFrame();
-  frame.name = frameName;
-  frame.resize(440, 956);
-  frame.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
-  figma.currentPage.appendChild(frame);
-
-  // Header bg
-  const headerBg = figma.createRectangle();
-  headerBg.resize(440, 180); headerBg.x = 0; headerBg.y = 0;
-  headerBg.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  frame.appendChild(headerBg);
-
-  // Back arrow
-  const arrowH = figma.createRectangle();
-  arrowH.resize(20, 3); arrowH.x = 28; arrowH.y = 67;
-  arrowH.cornerRadius = 2;
-  arrowH.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  frame.appendChild(arrowH);
-  const arrowT = figma.createRectangle();
-  arrowT.resize(10, 3); arrowT.x = 28; arrowT.y = 61;
-  arrowT.cornerRadius = 2; arrowT.rotation = -45;
-  arrowT.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  frame.appendChild(arrowT);
-  const arrowB = figma.createRectangle();
-  arrowB.resize(10, 3); arrowB.x = 28; arrowB.y = 73;
-  arrowB.cornerRadius = 2; arrowB.rotation = 45;
-  arrowB.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  frame.appendChild(arrowB);
-
-  // Scholarship name in header
-  const sName = figma.createText();
-  sName.fontName = F.poppinsBold;
-  sName.characters = schName; sName.fontSize = 20;
-  sName.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-  sName.x = 28; sName.y = 100;
-  frame.appendChild(sName);
-
-  const oName = figma.createText();
-  oName.fontName = F.openSansRegular;
-  oName.characters = orgName; oName.fontSize = 13;
-  oName.fills = [{ type: 'SOLID', color: BRAND.colors.white, opacity: 0.75 }];
-  oName.x = 28; oName.y = 130;
-  frame.appendChild(oName);
-
-  // Badge
-  const badgeW = badgeLabel.length * 8 + 24;
-  const badge = figma.createFrame();
-  badge.resize(badgeW, 26); badge.x = 440 - badgeW - 20; badge.y = 100;
-  badge.cornerRadius = 50;
-  badge.fills = [{ type: 'SOLID', color: badgeBg, opacity: badgeBgOp }];
-  frame.appendChild(badge);
-  const badgeTxtEl = figma.createText();
-  badgeTxtEl.fontName = F.openSansSemi;
-  badgeTxtEl.characters = badgeLabel; badgeTxtEl.fontSize = 11;
-  badgeTxtEl.fills = [{ type: 'SOLID', color: badgeTxt }];
-  badgeTxtEl.textAlignHorizontal = 'CENTER';
-  badgeTxtEl.textAlignVertical = 'CENTER';
-  badgeTxtEl.resize(badgeW, 26);
-  badge.appendChild(badgeTxtEl);
-
-  // Info cards row
-  const infoCardW = 118;
-  for (let i = 0; i < infoItems.length; i++) {
-    const infoCard = figma.createFrame();
-    infoCard.resize(infoCardW, 76); infoCard.x = 28 + i * (infoCardW + 10); infoCard.y = 196;
-    infoCard.cornerRadius = BRAND.cornerRadius;
-    infoCard.fills = [{ type: 'SOLID', color: BRAND.colors.white }];
-    infoCard.effects = [{
-      type: 'DROP_SHADOW',
-      color: { r: 0.106, g: 0.227, b: 0.361, a: 0.06 },
-      offset: { x: 0, y: 2 }, radius: 8, spread: 0,
-      visible: true, blendMode: 'NORMAL',
-    }];
-    frame.appendChild(infoCard);
-
-    const iconTxt = figma.createText();
-    iconTxt.fontName = F.poppinsBold;
-    iconTxt.characters = infoItems[i].icon; iconTxt.fontSize = 18;
-    iconTxt.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-    iconTxt.x = 12; iconTxt.y = 10;
-    infoCard.appendChild(iconTxt);
-
-    const valTxt = figma.createText();
-    valTxt.fontName = F.poppinsBold;
-    valTxt.characters = infoItems[i].value; valTxt.fontSize = 13;
-    valTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-    valTxt.x = 12; valTxt.y = 34;
-    infoCard.appendChild(valTxt);
-
-    const labelTxt = figma.createText();
-    labelTxt.fontName = F.openSansRegular;
-    labelTxt.characters = infoItems[i].label; labelTxt.fontSize = 10;
-    labelTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.5 }];
-    labelTxt.x = 12; labelTxt.y = 54;
-    infoCard.appendChild(labelTxt);
-  }
-
-  // About section
-  const aboutLabel = figma.createText();
-  aboutLabel.fontName = F.poppinsSemi;
-  aboutLabel.characters = 'About this Scholarship'; aboutLabel.fontSize = 16;
-  aboutLabel.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  aboutLabel.x = 28; aboutLabel.y = 296;
-  frame.appendChild(aboutLabel);
-
-  const aboutTxt = figma.createText();
-  aboutTxt.fontName = F.openSansRegular;
-  aboutTxt.characters = aboutText; aboutTxt.fontSize = 13;
-  aboutTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.65 }];
-  aboutTxt.lineHeight = { value: 22, unit: 'PIXELS' };
-  aboutTxt.resize(384, 90); aboutTxt.x = 28; aboutTxt.y = 326;
-  frame.appendChild(aboutTxt);
-
-  // Requirements section
-  const reqLabel = figma.createText();
-  reqLabel.fontName = F.poppinsSemi;
-  reqLabel.characters = 'Requirements'; reqLabel.fontSize = 16;
-  reqLabel.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust }];
-  reqLabel.x = 28; reqLabel.y = 434;
-  frame.appendChild(reqLabel);
-
-  let reqY = 466;
-  for (const req of requirements) {
-    const reqTxt = figma.createText();
-    reqTxt.fontName = F.openSansRegular;
-    reqTxt.characters = req; reqTxt.fontSize = 13;
-    reqTxt.fills = [{ type: 'SOLID', color: BRAND.colors.navyTrust, opacity: 0.75 }];
-    reqTxt.x = 28; reqTxt.y = reqY;
-    frame.appendChild(reqTxt);
-    reqY += 34;
-  }
-
-  // Upload docs button (outline)
-  const uploadBtn = figma.createFrame();
-  uploadBtn.resize(384, 48); uploadBtn.x = 28; uploadBtn.y = 648;
-  uploadBtn.cornerRadius = BRAND.buttonRadius;
-  uploadBtn.fills = [{ type: 'SOLID', color: BRAND.colors.warmWhite }];
-  uploadBtn.strokes = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen, opacity: 0.6 }];
-  uploadBtn.strokeWeight = 1.5; uploadBtn.strokeAlign = 'INSIDE';
-  frame.appendChild(uploadBtn);
-  const uploadTxt = figma.createText();
-  uploadTxt.fontName = F.openSansSemi;
-  uploadTxt.characters = '⬆  Upload Documents'; uploadTxt.fontSize = 14;
-  uploadTxt.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  uploadTxt.textAlignHorizontal = 'CENTER';
-  uploadTxt.textAlignVertical = 'CENTER';
-  uploadTxt.resize(384, 48);
-  uploadBtn.appendChild(uploadTxt);
-
-  // Apply Now button
-  frame.appendChild(createButton('Apply Now', 28, 712, 384));
-
-  // Learn More link
-  const learnMore = figma.createText();
-  learnMore.fontName = F.openSansSemi;
-  learnMore.characters = 'Learn More →'; learnMore.fontSize = 13;
-  learnMore.fills = [{ type: 'SOLID', color: BRAND.colors.bridgeGreen }];
-  learnMore.textAlignHorizontal = 'CENTER';
-  learnMore.resize(384, 20); learnMore.x = 28; learnMore.y = 782;
-  frame.appendChild(learnMore);
-
-  // Bottom nav
-  frame.appendChild(createBottomNav('Apply', frame));
-
-  figma.viewport.scrollAndZoomIntoView([frame]);
-  figma.notify('✅ ' + schName + ' created!');
-}
-
 function applyBrandStyle(node, role) {
   const colorMap = {
     primary:    BRAND.colors.bridgeGreen,
@@ -2810,4 +2413,4 @@ function applyBrandStyle(node, role) {
   const color = colorMap[role] || BRAND.colors.bridgeGreen;
   if ('fills' in node) { node.fills = [{ type: 'SOLID', color }]; }
   if ('cornerRadius' in node && !('text' in node)) { node.cornerRadius = BRAND.cornerRadius; }
-} 
+}
