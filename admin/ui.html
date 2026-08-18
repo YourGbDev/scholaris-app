@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scholaris — Admin Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #F8F9F8; font-family: 'Inter', sans-serif; padding: 16px; }
+    .title { font-weight: 700; font-size: 16px; color: #0F4D2E; margin-bottom: 2px; }
+    .subtitle { font-size: 11px; color: #1B3A5C; margin-bottom: 14px; }
+    .section { font-size: 10px; font-weight: 600; color: #9CA19F; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px; }
+    .btn {
+      display: block; width: 100%; padding: 10px 14px;
+      margin-bottom: 6px; border: none; border-radius: 8px;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      font-weight: 600; font-size: 13px; text-align: left;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn-green  { background: #0F4D2E; color: #fff; }
+    .btn-navy   { background: #1B3A5C; color: #fff; }
+    .btn-coral  { background: #C04020; color: #fff; }
+    .btn-gold   { background: #856014; color: #fff; }
+    .divider { height: 1px; background: #E7E9E8; margin: 10px 0; }
+    .note { font-size: 10px; color: #9CA19F; margin-top: 12px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <div class="title">Scholaris</div>
+  <div class="subtitle">Admin Portal Plugin — iPad UI</div>
+
+  <div class="section">Full Admin Flow</div>
+  <button class="btn btn-green" id="allBtn">Generate All Admin Screens</button>
+
+  <div class="divider"></div>
+  <div class="section">Individual Screens</div>
+  <button class="btn btn-navy"  id="loginBtn">1 — Admin Login</button>
+  <button class="btn btn-green" id="dashBtn">2 — Dashboard</button>
+  <button class="btn btn-green" id="applicantsBtn">3 — Applicants</button>
+  <button class="btn btn-green" id="scholarshipsBtn">4 — Scholarships</button>
+  <button class="btn btn-navy"  id="providersBtn">5 — Providers</button>
+  <button class="btn btn-navy"  id="usersBtn">6 — Users</button>
+  <button class="btn btn-gold"  id="analyticsBtn">7 — Analytics</button>
+  <button class="btn btn-coral" id="logsBtn">8 — Audit Logs</button>
+
+  <div class="divider"></div>
+  <div class="section">Detail & Form Screens</div>
+  <button class="btn btn-green"  id="applicantDetailBtn">9 — Applicant Detail</button>
+  <button class="btn btn-green"  id="scholarshipDetailBtn">10 — Scholarship Detail</button>
+  <button class="btn btn-navy"   id="settingsBtn">11 — Settings</button>
+  <button class="btn btn-navy"   id="notificationsBtn">12 — Notifications</button>
+  <button class="btn btn-gold"   id="createScholarshipBtn">13 — Create Scholarship</button>
+  <button class="btn btn-green" id="providerDetailBtn">14 — Provider Detail</button>
+  <button class="btn btn-gold"  id="userDetailBtn">15 — User Detail</button>
+  <button class="btn btn-navy"  id="reportsBtn">16 — Reports</button>
+
+  <p class="note">⚠ iPad frame: 1194 × 834px (landscape)<br>All screens use Scholaris brand tokens.</p>
+
+  <script>
+    const send = type => parent.postMessage({ pluginMessage: { type } }, '*');
+    document.getElementById('allBtn').onclick          = () => send('generate-all');
+    document.getElementById('loginBtn').onclick        = () => send('generate-login');
+    document.getElementById('dashBtn').onclick         = () => send('generate-dashboard');
+    document.getElementById('applicantsBtn').onclick = () => send('generate-applicants');
+    document.getElementById('scholarshipsBtn').onclick = () => send('generate-scholarships');
+    document.getElementById('providersBtn').onclick  = () => send('generate-providers');
+    document.getElementById('usersBtn').onclick        = () => send('generate-users');
+    document.getElementById('analyticsBtn').onclick    = () => send('generate-analytics');
+    document.getElementById('logsBtn').onclick         = () => send('generate-logs');
+    document.getElementById('applicantDetailBtn').onclick    = () => send('generate-applicant-detail');
+    document.getElementById('scholarshipDetailBtn').onclick  = () => send('generate-scholarship-detail');
+    document.getElementById('settingsBtn').onclick           = () => send('generate-settings');
+    document.getElementById('notificationsBtn').onclick      = () => send('generate-notifications');
+    document.getElementById('createScholarshipBtn').onclick  = () => send('generate-create-scholarship');
+    document.getElementById("providerDetailBtn").onclick  = () => send("generate-provider-detail");
+    document.getElementById("userDetailBtn").onclick     = () => send("generate-user-detail");
+    document.getElementById("reportsBtn").onclick        = () => send("generate-reports");
+  </script>
+</body>
+</html>

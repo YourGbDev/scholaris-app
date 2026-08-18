@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scholaris — Provider Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #F8F9F8; font-family: 'Inter', sans-serif; padding: 16px; }
+    .title { font-weight: 700; font-size: 16px; color: #0F4D2E; margin-bottom: 2px; }
+    .subtitle { font-size: 11px; color: #1B3A5C; margin-bottom: 14px; }
+    .section { font-size: 10px; font-weight: 600; color: #9CA19F; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px; }
+    .btn {
+      display: block; width: 100%; padding: 10px 14px;
+      margin-bottom: 6px; border: none; border-radius: 8px;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      font-weight: 600; font-size: 13px; text-align: left;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn-primary { background: #0F4D2E; color: #fff; }
+    .btn-dost  { background: #0F4D2E; color: #fff; }
+    .btn-ched  { background: #1B3A5C; color: #fff; }
+    .btn-sm    { background: #341A7B; color: #fff; }
+    .btn-ayala { background: #804000; color: #fff; }
+    .divider { height: 1px; background: #E7E9E8; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <div class="title">Scholaris</div>
+  <div class="subtitle">Provider Portal Plugin</div>
+
+  <div class="section">Entry Screen</div>
+  <button class="btn btn-primary" id="selectionBtn">Generate Provider Selection</button>
+
+  <div class="divider"></div>
+  <div class="section">DOST-SEI (Login + Dashboard + Scholarships)</div>
+  <button class="btn btn-dost" id="dostBtn">Generate DOST-SEI Screens</button>
+
+  <div class="divider"></div>
+  <div class="section">CHED (Login + Dashboard + Scholarships)</div>
+  <button class="btn btn-ched" id="chedBtn">Generate CHED Screens</button>
+
+  <div class="divider"></div>
+  <div class="section">SM Foundation (Login + Dashboard + Scholarships)</div>
+  <button class="btn btn-sm" id="smBtn">Generate SM Foundation Screens</button>
+
+  <div class="divider"></div>
+  <div class="section">Ayala Foundation (Login + Dashboard + Scholarships)</div>
+  <button class="btn btn-ayala" id="ayalaBtn">Generate Ayala Foundation Screens</button>
+
+  <script>
+    const send = type => parent.postMessage({ pluginMessage: { type } }, '*');
+    document.getElementById('selectionBtn').onclick = () => send('generate-selection');
+    document.getElementById('dostBtn').onclick     = () => send('generate-dost');
+    document.getElementById('chedBtn').onclick     = () => send('generate-ched');
+    document.getElementById('smBtn').onclick       = () => send('generate-sm');
+    document.getElementById('ayalaBtn').onclick    = () => send('generate-ayala');
+  </script>
+</body>
+</html>
